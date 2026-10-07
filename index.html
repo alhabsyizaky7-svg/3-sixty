@@ -3,137 +3,295 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="3 SIXTY - Premium fragrance. Temukan parfum favoritmu dengan promo spesial.">
-  <title>3 SIXTY | Premium Fragrance</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>3 SIXTY — 360° of Character</title>
+  <meta name="description" content="3 SIXTY Eau de Parfum">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="header">
-  <div class="nav container">
-    <a class="logo" href="#home">3 SIXTY</a>
-    <nav class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#kategori">Kategori</a>
-      <a href="#produk">Parfum</a>
-      <a href="#kontak">Kontak</a>
-    </nav>
-    <button class="cart-btn" onclick="openCart()">🛒 Keranjang <span id="cartCount">0</span></button>
+<header class="topbar">
+  <div class="brand-mini">
+    <img src="assets/logo.jpg" alt="Logo 3 SIXTY">
+    <div>
+      <strong>3 SIXTY</strong>
+      <span>360° OF CHARACTER</span>
+    </div>
   </div>
+
+  <nav>
+    <a href="#produk">Parfum</a>
+    <a href="#promo">Promo</a>
+    <a href="#pesan">Pesan</a>
+  </nav>
 </header>
 
 <main>
-  <section class="hero" id="home">
-    <div class="hero-content container">
-      <p class="eyebrow">PREMIUM FRAGRANCE</p>
-      <h1>3 SIXTY</h1>
-      <h2>Temukan Aroma yang Jadi Karaktermu.</h2>
-      <p class="hero-text">
-        Koleksi parfum dengan karakter fresh, floral, spicy, warm hingga misterius.
-        Pilih aromamu dan pesan langsung melalui WhatsApp.
-      </p>
-      <div class="hero-actions">
-        <a href="#produk" class="btn">Lihat Koleksi</a>
-        <button class="btn btn-outline" onclick="openCart()">Pesan Sekarang</button>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">EAU DE PARFUM • 30 ML</span>
+
+    <h1>
+      Temukan karakter<br>
+      <em>terbaikmu.</em>
+    </h1>
+
+    <p>
+      8 pilihan aroma 3 SIXTY untuk menemani
+      setiap sisi karaktermu.
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn gold" href="#produk">Lihat Koleksi</a>
+      <a class="btn outline" href="#pesan">Pesan Sekarang</a>
+    </div>
+  </div>
+
+  <div class="hero-logo">
+    <img src="assets/logo.jpg" alt="3 SIXTY">
+  </div>
+</section>
+
+
+<!-- SPECIAL LAUNCHING DI AWAL -->
+<section id="promo" class="launch">
+
+  <div class="launch-image">
+    <img src="assets/launching.png" alt="Special Launching 3 SIXTY">
+  </div>
+
+  <div class="launch-copy">
+
+    <span class="eyebrow">SPECIAL LAUNCHING</span>
+
+    <h2>
+      Promo pembukaan<br>
+      <em>3 SIXTY</em>
+    </h2>
+
+    <p>
+      Harga normal <s>Rp45.000</s>
+      menjadi <strong>Rp40.000</strong> per botol.
+    </p>
+
+    <div class="bundle-grid">
+
+      <div>
+        <b>1 BOTOL</b>
+        <strong>Rp40.000</strong>
       </div>
-      <div class="promo-banner">
-        🔥 <strong>FLASH SALE</strong> — Semua parfum <s>Rp45.000</s> menjadi
-        <strong>Rp40.000</strong> sampai tanggal 15!
+
+      <div>
+        <b>2 BOTOL</b>
+        <strong>Rp75.000</strong>
       </div>
-    </div>
-  </section>
 
-  <section class="section container" id="kategori">
-    <div class="section-heading">
-      <p class="eyebrow">EXPLORE</p>
-      <h2>Kategori Parfum</h2>
-    </div>
-    <div class="categories">
-      <button class="category-card" onclick="filterCategory('Men')">
-        <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=900&q=80" alt="Parfum Men">
-        <span>Men</span>
-      </button>
-      <button class="category-card" onclick="filterCategory('Women')">
-        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=80" alt="Parfum Women">
-        <span>Women</span>
-      </button>
-      <button class="category-card" onclick="filterCategory('Unisex')">
-        <img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=900&q=80" alt="Parfum Unisex">
-        <span>Unisex</span>
-      </button>
-    </div>
-  </section>
+      <div>
+        <b>3 BOTOL</b>
+        <strong>Rp105.000</strong>
+      </div>
 
-  <section class="section container" id="produk">
-    <div class="section-heading">
-      <p class="eyebrow">3 SIXTY COLLECTION</p>
-      <h2>Pilihan Parfum</h2>
     </div>
 
-    <div class="toolbar">
-      <input id="searchInput" type="search" placeholder="Cari parfum..." oninput="renderProducts()">
-      <select id="categoryFilter" onchange="renderProducts()">
-        <option value="All">Semua Kategori</option>
-        <option value="Men">Men</option>
-        <option value="Women">Women</option>
-        <option value="Unisex">Unisex</option>
+    <p class="deadline">
+      Promo berlaku sampai
+      <strong>15 Oktober 2026</strong>.
+    </p>
+
+    <a class="btn gold" href="#pesan">
+      Ambil Promo
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- PRODUK -->
+<section id="produk" class="catalog">
+
+  <div class="section-heading">
+
+    <div>
+      <span class="eyebrow">OUR COLLECTION</span>
+      <h2>Pilih aromamu</h2>
+    </div>
+
+    <div class="filters">
+      <button class="filter active" data-filter="all">
+        Semua
+      </button>
+
+      <button class="filter" data-filter="men">
+        Men
+      </button>
+
+      <button class="filter" data-filter="women">
+        Women
+      </button>
+    </div>
+
+  </div>
+
+  <div class="product-grid" id="productGrid"></div>
+
+</section>
+
+
+<!-- FORM PEMESANAN -->
+<section id="pesan" class="order-section">
+
+  <div class="order-info">
+
+    <span class="eyebrow">
+      ORDER VIA WHATSAPP
+    </span>
+
+    <h2>
+      Siap memilih<br>
+      <em>aromamu?</em>
+    </h2>
+
+    <p>
+      Isi formulir di samping.
+      Setelah menekan tombol pesan,
+      WhatsApp akan terbuka dengan format
+      pesanan yang sudah disiapkan.
+    </p>
+
+    <div class="contact-box">
+      <span>WhatsApp</span>
+      <strong>0895 3538 44848</strong>
+    </div>
+
+    <div class="mini-note">
+      Promo 40K/botol berlaku sampai
+      15 Oktober 2026.
+    </div>
+
+  </div>
+
+
+  <form id="orderForm" class="order-form">
+
+    <label>
+      Nama
+
+      <input
+        id="customerName"
+        type="text"
+        placeholder="Nama kamu"
+        required
+      >
+    </label>
+
+
+    <label>
+      Pilih kategori
+
+      <select id="category" required>
+
+        <option value="" disabled selected>
+          Pilih kategori
+        </option>
+
+        <option value="men">
+          Men
+        </option>
+
+        <option value="women">
+          Women
+        </option>
+
       </select>
-    </div>
 
-    <div class="products" id="productList"></div>
-  </section>
+    </label>
+
+
+    <label>
+      Pilih aroma
+
+      <select id="aroma" required>
+
+        <option value="" disabled selected>
+          Pilih aroma
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <label>
+      Jumlah botol
+
+      <select id="quantity" required>
+
+        <option value="1">
+          1 botol — Rp40.000
+        </option>
+
+        <option value="2">
+          2 botol — Rp75.000
+        </option>
+
+        <option value="3">
+          3 botol — Rp105.000
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <label>
+      Catatan
+
+      <textarea
+        id="notes"
+        rows="3"
+        placeholder="Catatan tambahan"
+      ></textarea>
+
+    </label>
+
+
+    <button
+      class="btn gold full"
+      type="submit"
+    >
+      Pesan via WhatsApp
+    </button>
+
+    <p class="form-hint">
+      Nomor tujuan: 0895353844848
+    </p>
+
+  </form>
+
+</section>
+
 </main>
 
-<footer id="kontak">
-  <div class="container footer-inner">
-    <div class="footer-logo">3 SIXTY</div>
-    <p>Premium fragrance for every character.</p>
-    <p>Pesan via WhatsApp: <strong>0895-3538-44848</strong></p>
-    <small>© 2026 3 SIXTY. All rights reserved.</small>
+
+<footer>
+
+  <img src="assets/logo.jpg" alt="3 SIXTY">
+
+  <div>
+    <strong>3 SIXTY</strong>
+    <span>360° OF CHARACTER</span>
   </div>
+
+  <p>
+    © 2026 3 SIXTY. All rights reserved.
+  </p>
+
 </footer>
 
-<div class="modal" id="productModal" onclick="closeOnBackdrop(event, 'productModal')">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal('productModal')">×</button>
-    <div id="productDetail"></div>
-  </div>
-</div>
 
-<div class="modal" id="cartModal" onclick="closeOnBackdrop(event, 'cartModal')">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal('cartModal')">×</button>
-    <h2>Keranjang Pesanan</h2>
-    <div id="cartItems"></div>
-    <div class="cart-total"><span>Total</span><strong id="cartTotal">Rp0</strong></div>
-    <button class="btn full" onclick="openCheckout()">Lanjut Checkout</button>
-  </div>
-</div>
+<script src="script.js"></script>
 
-<div class="modal" id="checkoutModal" onclick="closeOnBackdrop(event, 'checkoutModal')">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal('checkoutModal')">×</button>
-    <h2>Data Pemesanan</h2>
-    <form id="checkoutForm">
-      <label>Nama
-        <input id="customerName" required placeholder="Nama lengkap">
-      </label>
-      <label>No. WhatsApp
-        <input id="customerPhone" required type="tel" placeholder="08xxxxxxxxxx">
-      </label>
-      <label>Alamat
-        <textarea id="customerAddress" required placeholder="Alamat lengkap"></textarea>
-      </label>
-      <label>Catatan
-        <textarea id="customerNote" placeholder="Catatan pesanan (opsional)"></textarea>
-      </label>
-      <button class="btn full" type="submit">Kirim Pesanan ke WhatsApp</button>
-    </form>
-  </div>
-</div>
-
-<div id="toast" class="toast"></div>
-
-<script src="js/app.js"></script>
 </body>
 </html>
