@@ -1,164 +1,355 @@
-const WHATSAPP_NUMBER = "6289535384848";
-const PROMO_END_DAY = 15;
-
 const products = [
-  {id:1,name:"BLACK CODE",category:"Men",price:40000,normalPrice:45000,notes:"Fresh • Spicy • Warm • Misterius",description:"Aroma maskulin dengan perpaduan fresh, spicy, dan warm yang memberikan karakter misterius dan berani.",image:"https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=800&q=80",badge:"DISKON"},
-  {id:2,name:"LADY CHARM",category:"Women",price:40000,normalPrice:45000,notes:"Fresh • Fruity • Floral • Playful",description:"Aroma feminin yang fresh dan playful dengan sentuhan fruity serta floral yang menyenangkan.",image:"https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80",badge:"DISKON"},
-  {id:3,name:"WHITE ORCHID",category:"Women",price:40000,normalPrice:45000,notes:"Floral • Oriental • Warm • Sensual",description:"Karakter floral yang elegan dengan sentuhan oriental dan warm untuk kesan mewah.",image:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80",badge:"DISKON"},
-  {id:4,name:"ROYAL NIGHT",category:"Men",price:40000,normalPrice:45000,notes:"Woody • Spicy • Warm • Elegant",description:"Aroma woody yang hangat dan elegan, cocok untuk menemani aktivitas malam.",image:"https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=800&q=80",badge:"DISKON"},
-  {id:5,name:"PURE BLOOM",category:"Women",price:40000,normalPrice:45000,notes:"Fresh • Floral • Soft • Clean",description:"Aroma lembut dan clean dengan karakter floral yang fresh untuk penggunaan sehari-hari.",image:"https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80",badge:"DISKON"},
-  {id:6,name:"SIGNATURE 360",category:"Unisex",price:40000,normalPrice:45000,notes:"Fresh • Woody • Warm • Modern",description:"Aroma modern yang versatile dengan perpaduan fresh, woody dan warm. Cocok digunakan siapa saja.",image:"https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=800&q=80",badge:"DISKON"}
+  {
+    name: "AR–ONE",
+    cat: "men",
+    notes: "Fresh, maskulin, spicy, elegan",
+    image: "assets/ar-one.png"
+  },
+  {
+    name: "RS–ONE",
+    cat: "men",
+    notes: "Fruity, fresh, smoky, woody",
+    image: "assets/ar-one.png"
+  },
+  {
+    name: "MEN’S CLUB",
+    cat: "men",
+    notes: "Fresh, clean, manly, sedikit manis",
+    image: "assets/ar-one.png"
+  },
+  {
+    name: "BLACK CODE",
+    cat: "men",
+    notes: "Fresh, spicy, warm, misterius",
+    image: "assets/black-code.png"
+  },
+  {
+    name: "ROYAL MAN",
+    cat: "men",
+    notes: "Fresh, elegant, clean, woody",
+    image: "assets/black-code.png"
+  },
+  {
+    name: "BELLA",
+    cat: "women",
+    notes: "Floral, feminine, soft, elegant",
+    image: "assets/lady-charm.png"
+  },
+  {
+    name: "LADY CHARM",
+    cat: "women",
+    notes: "Fresh, fruity, floral, playful",
+    image: "assets/lady-charm.png"
+  },
+  {
+    name: "WHITE ORCHID",
+    cat: "women",
+    notes: "Floral, oriental, warm, sensual",
+    image: "assets/white-orchid.png"
+  }
 ];
 
-let cart = JSON.parse(localStorage.getItem("threeSixtyCart") || "[]");
 
-function rupiah(n){return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n)}
+const grid = document.getElementById("productGrid");
+const aroma = document.getElementById("aroma");
+const category = document.getElementById("category");
 
-function promoActive(){
-  return new Date().getDate() <= PROMO_END_DAY;
+
+/* =========================
+   TAMPILKAN PRODUK
+========================= */
+
+function renderProducts(filter = "all") {
+
+  grid.innerHTML = products
+
+    .filter(function(product) {
+
+      return filter === "all" ||
+             product.cat === filter;
+
+    })
+
+    .map(function(product) {
+
+      return `
+        <article class="card">
+
+          <div class="card-media">
+
+            <img
+              src="${product.image}"
+              alt="${product.name} — 3 SIXTY"
+            >
+
+          </div>
+
+
+          <div class="card-body">
+
+            <span class="tag">
+              ${product.cat === "men" ? "MEN" : "WOMEN"}
+            </span>
+
+
+            <h3>
+              ${product.name}
+            </h3>
+
+
+            <div class="notes">
+              ${product.notes}
+            </div>
+
+
+            <div class="price">
+
+              <s>Rp45.000</s>
+
+              <strong>
+                Rp40.000
+              </strong>
+
+            </div>
+
+
+            <button
+              class="choose"
+              data-name="${product.name}"
+              data-cat="${product.cat}"
+            >
+              Pilih aroma ini
+            </button>
+
+          </div>
+
+        </article>
+      `;
+
+    })
+
+    .join("");
 }
 
-function renderProducts(){
-  const list=document.getElementById("productList");
-  const search=document.getElementById("searchInput").value.toLowerCase();
-  const category=document.getElementById("categoryFilter").value;
 
-  const filtered=products.filter(p=>
-    (p.name.toLowerCase().includes(search)||p.notes.toLowerCase().includes(search)) &&
-    (category==="All"||p.category===category)
-  );
+renderProducts();
 
-  if(!filtered.length){
-    list.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#777;padding:35px">Parfum tidak ditemukan.</p>';
-    return;
-  }
 
-  list.innerHTML=filtered.map(p=>`
-    <article class="product-card">
-      <div class="product-image">
-        <img src="${p.image}" alt="${p.name}" loading="lazy">
-        <span class="badge">${p.badge}</span>
-      </div>
-      <div class="product-info">
-        <div class="product-category">${p.category}</div>
-        <h3>${p.name}</h3>
-        <div class="notes">${p.notes}</div>
-        <div class="price">
-          <span class="normal-price">${rupiah(promoActive()?p.normalPrice:p.price)}</span>
-          <span class="sale-price">${rupiah(promoActive()?p.price:p.normalPrice)}</span>
-        </div>
-        ${promoActive()?'<div class="sale-label">🔥 PROMO SAMPAI TANGGAL 15</div>':''}
-        <div class="actions">
-          <button class="detail" onclick="showProduct(${p.id})">Detail</button>
-          <button onclick="addToCart(${p.id})">+ Keranjang</button>
-        </div>
-      </div>
-    </article>`).join("");
-}
+/* =========================
+   FILTER MEN / WOMEN
+========================= */
 
-function filterCategory(category){
-  document.getElementById("categoryFilter").value=category;
-  renderProducts();
-  document.getElementById("produk").scrollIntoView({behavior:"smooth"});
-}
+document
+  .querySelectorAll(".filter")
+  .forEach(function(button) {
 
-function showProduct(id){
-  const p=products.find(x=>x.id===id);
-  document.getElementById("productDetail").innerHTML=`
-    <div class="detail-grid">
-      <img src="${p.image}" alt="${p.name}">
-      <div class="detail-copy">
-        <small class="eyebrow">${p.category}</small>
-        <h2>${p.name}</h2>
-        <h3 style="color:#b33a3a">${rupiah(promoActive()?p.price:p.normalPrice)}</h3>
-        ${promoActive()?`<p><s>${rupiah(p.normalPrice)}</s> • Promo sampai tanggal 15</p>`:""}
-        <p><strong>Karakter Aroma:</strong><br>${p.notes}</p>
-        <p>${p.description}</p>
-        <button class="btn full" onclick="addToCart(${p.id});closeModal('productModal')">Tambahkan ke Keranjang</button>
-      </div>
-    </div>`;
-  document.getElementById("productModal").classList.add("active");
-}
+    button.addEventListener(
+      "click",
+      function() {
 
-function addToCart(id){
-  const item=cart.find(x=>x.id===id);
-  if(item)item.qty++; else cart.push({id,qty:1});
-  saveCart();showToast("Parfum ditambahkan ke keranjang");
-}
+        document
+          .querySelectorAll(".filter")
+          .forEach(function(btn) {
 
-function saveCart(){
-  localStorage.setItem("threeSixtyCart",JSON.stringify(cart));
-  updateCart();
-}
+            btn.classList.remove("active");
 
-function updateCart(){
-  document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0);
-  const box=document.getElementById("cartItems");
-  if(!cart.length){
-    box.innerHTML='<p style="text-align:center;color:#777;padding:30px">Keranjang masih kosong.</p>';
-    document.getElementById("cartTotal").textContent="Rp0";
-    return;
-  }
-  let total=0;
-  box.innerHTML=cart.map(item=>{
-    const p=products.find(x=>x.id===item.id);
-    const price=promoActive()?p.price:p.normalPrice;
-    const sub=price*item.qty; total+=sub;
-    return `<div class="cart-item">
-      <img src="${p.image}" alt="${p.name}">
-      <div class="cart-info"><h4>${p.name}</h4><small>${rupiah(price)}</small><br>
-      <button class="remove" onclick="removeFromCart(${p.id})">Hapus</button></div>
-      <div class="qty"><button onclick="changeQty(${p.id},-1)">−</button><span>${item.qty}</span><button onclick="changeQty(${p.id},1)">+</button></div>
-    </div>`;
-  }).join("");
-  document.getElementById("cartTotal").textContent=rupiah(total);
-}
+          });
 
-function changeQty(id,amount){
-  const item=cart.find(x=>x.id===id); if(!item)return;
-  item.qty+=amount;
-  if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
-  saveCart();
-}
 
-function removeFromCart(id){cart=cart.filter(x=>x.id!==id);saveCart()}
+        button.classList.add("active");
 
-function openCart(){updateCart();document.getElementById("cartModal").classList.add("active")}
-function openCheckout(){
-  if(!cart.length){showToast("Keranjang masih kosong");return}
-  closeModal("cartModal");document.getElementById("checkoutModal").classList.add("active");
-}
-function closeModal(id){document.getElementById(id).classList.remove("active")}
-function closeOnBackdrop(e,id){if(e.target.id===id)closeModal(id)}
 
-document.getElementById("checkoutForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  if(!cart.length){showToast("Keranjang masih kosong");return}
-  const name=document.getElementById("customerName").value.trim();
-  const phone=document.getElementById("customerPhone").value.trim();
-  const address=document.getElementById("customerAddress").value.trim();
-  const note=document.getElementById("customerNote").value.trim();
-  let total=0;
-  let message="*PESANAN 3 SIXTY*%0A%0A";
-  message+=`Nama: ${encodeURIComponent(name)}%0A`;
-  message+=`No. WhatsApp: ${encodeURIComponent(phone)}%0A`;
-  message+=`Alamat: ${encodeURIComponent(address)}%0A%0A`;
-  message+="*DETAIL PESANAN*%0A";
-  cart.forEach(item=>{
-    const p=products.find(x=>x.id===item.id);
-    const price=promoActive()?p.price:p.normalPrice;
-    const sub=price*item.qty;total+=sub;
-    message+=`• ${encodeURIComponent(p.name)} x${item.qty} — ${encodeURIComponent(rupiah(sub))}%0A`;
+        renderProducts(
+          button.dataset.filter
+        );
+
+      }
+    );
+
   });
-  message+=`%0A*TOTAL: ${encodeURIComponent(rupiah(total))}*%0A`;
-  if(promoActive())message+="🔥 Promo Rp40.000 sampai tanggal 15%0A";
-  if(note)message+=`%0ACatatan: ${encodeURIComponent(note)}`;
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,"_blank");
-});
 
-function showToast(msg){
-  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),2200);
+
+/* =========================
+   PILIHAN AROMA
+========================= */
+
+function populateAroma() {
+
+  const selectedCategory =
+    category.value;
+
+
+  aroma.innerHTML = `
+    <option value="" disabled selected>
+      Pilih aroma
+    </option>
+  `;
+
+
+  products
+
+    .filter(function(product) {
+
+      return !selectedCategory ||
+             product.cat === selectedCategory;
+
+    })
+
+    .forEach(function(product) {
+
+      const option =
+        document.createElement("option");
+
+
+      option.value =
+        product.name;
+
+
+      option.textContent =
+        `${product.name} — ${product.notes}`;
+
+
+      aroma.appendChild(option);
+
+    });
+
 }
 
-renderProducts();updateCart();
+
+category.addEventListener(
+  "change",
+  populateAroma
+);
+
+
+populateAroma();
+
+
+/* =========================
+   TOMBOL PILIH AROMA
+========================= */
+
+grid.addEventListener(
+  "click",
+  function(event) {
+
+    const button =
+      event.target.closest(".choose");
+
+
+    if (!button) {
+      return;
+    }
+
+
+    category.value =
+      button.dataset.cat;
+
+
+    populateAroma();
+
+
+    aroma.value =
+      button.dataset.name;
+
+
+    document
+      .getElementById("pesan")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+);
+
+
+/* =========================
+   FORM PEMESANAN WHATSAPP
+========================= */
+
+document
+  .getElementById("orderForm")
+  .addEventListener(
+    "submit",
+    function(event) {
+
+      event.preventDefault();
+
+
+      const name =
+        document
+          .getElementById("customerName")
+          .value
+          .trim();
+
+
+      const selectedCategory =
+        category.value;
+
+
+      const product =
+        aroma.value;
+
+
+      const quantity =
+        Number(
+          document
+            .getElementById("quantity")
+            .value
+        );
+
+
+      const notes =
+        document
+          .getElementById("notes")
+          .value
+          .trim();
+
+
+      let total;
+
+
+      if (quantity === 1) {
+
+        total = 40000;
+
+      } else if (quantity === 2) {
+
+        total = 75000;
+
+      } else {
+
+        total = 105000;
+
+      }
+
+
+      const message =
+
+`Halo 3 SIXTY, saya ingin memesan parfum.
+
+Nama: ${name}
+Kategori: ${selectedCategory === "men" ? "Men" : "Women"}
+Aroma: ${product}
+Jumlah: ${quantity} botol
+Total promo: Rp${total.toLocaleString("id-ID")}
+Catatan: ${notes || "-"}
+
+Saya mengetahui promo berlaku sampai 15 Oktober 2026.`;
+
+
+      const whatsappNumber =
+        "62895353844848";
+
+
+      const whatsappURL =
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+
+      window.open(
+        whatsappURL,
+        "_blank"
+      );
+
+    }
+  );
